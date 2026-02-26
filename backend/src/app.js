@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const { errorHandler } = require("./middleware/errorHandler");
@@ -9,15 +10,47 @@ const commentsRoutes = require("./routes/comments.routes");
 
 const app = express();
 
+
+// ================= MIDDLEWARE =================
+
+// Enable CORS (allow frontend access)
 app.use(cors({ origin: process.env.CORS_ORIGIN || "*" }));
+
+// Parse JSON request bodies
 app.use(express.json());
 
-app.get("/health", (req, res) => res.json({ status: "ok" }));
+
+// ================= ROOT ROUTE =================
+
+// Fix for "Cannot GET /"
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "🚀 CultureConnect API is running successfully",
+  });
+});
+
+
+// ================= HEALTH CHECK =================
+
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    uptime: process.uptime(),
+  });
+});
+
+
+// ================= API ROUTES =================
 
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postsRoutes);
 app.use("/api", commentsRoutes);
 
+
+// ================= ERROR HANDLER =================
+
+// Must be last middleware
 app.use(errorHandler);
+
 
 module.exports = app;
