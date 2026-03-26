@@ -28,7 +28,7 @@ const PostDetail = () => {
     const fetchPost = async () => {
       try {
         // GET request to fetch post by ID
-        const res = await axios.get(`http://localhost:5002/api/posts/${id}`);
+        const res = await axios.get(`http://localhost:5004/api/posts/${id}`);
         // Update post state
         setPost(res.data);
       } catch (err) {
@@ -41,7 +41,7 @@ const PostDetail = () => {
     const fetchComments = async () => {
       try {
         // GET request to fetch comments for this post
-        const res = await axios.get(`http://localhost:5002/api/posts/${id}/comments`);
+        const res = await axios.get(`http://localhost:5004/api/posts/${id}/comments`);
         // Update comments state
         setComments(res.data);
       } catch (err) {
@@ -61,11 +61,11 @@ const PostDetail = () => {
     e.preventDefault();
     try {
       // POST request to add new comment
-      await axios.post(`http://localhost:5002/api/posts/${id}/comments`, { content: newComment });
+      await axios.post(`http://localhost:5004/api/posts/${id}/comments`, { content: newComment });
       // Clear the input field
       setNewComment('');
       // Refresh comments list
-      const res = await axios.get(`http://localhost:5002/api/posts/${id}/comments`);
+      const res = await axios.get(`http://localhost:5004/api/posts/${id}/comments`);
       setComments(res.data);
     } catch (err) {
       // Show error alert
@@ -77,7 +77,7 @@ const PostDetail = () => {
   const handleDeleteComment = async (commentId) => {
     try {
       // DELETE request to remove comment
-      await axios.delete(`http://localhost:5002/api/comments/${commentId}`);
+      await axios.delete(`http://localhost:5004/api/comments/${commentId}`);
       // Update local state by filtering out deleted comment
       setComments(comments.filter(c => c.id !== commentId));
     } catch (err) {

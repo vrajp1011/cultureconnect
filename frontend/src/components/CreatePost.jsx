@@ -31,7 +31,7 @@ const CreatePost = () => {
     }
     try {
       // POST request to create new post
-      await axios.post('http://localhost:5002/api/posts', { title, content });
+      await axios.post('http://localhost:5004/api/posts', { title, content });
       // Navigate to posts page after successful creation
       navigate('/posts');
     } catch (err) {

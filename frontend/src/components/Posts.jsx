@@ -18,7 +18,7 @@ const Posts = () => {
     const fetchPosts = async () => {
       try {
         // Make GET request to fetch all posts
-        const res = await axios.get('http://localhost:5002/api/posts');
+        const res = await axios.get('http://localhost:5004/api/posts');
         // Update state with fetched posts
         setPosts(res.data);
       } catch (err) {
