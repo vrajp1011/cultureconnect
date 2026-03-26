@@ -4,8 +4,8 @@ const app = require("./app");
 
 // Set server port
 // Use environment variable PORT if available (for deployment)
-// Otherwise default to 5000 for local development
-const PORT = process.env.PORT || 5000;
+// Otherwise default to 5001 for local development (5000 is in use)
+const PORT = process.env.PORT || 5001;
 
 
 // ================= START SERVER =================

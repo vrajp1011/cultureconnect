@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       // POST request to login endpoint
-      const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const res = await axios.post('http://localhost:5002/api/auth/login', { email, password });
       // Store token in state
       setToken(res.data.token);
       // Store token in localStorage for persistence
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (username, email, password) => {
     try {
       // POST request to register endpoint
-      const res = await axios.post('http://localhost:5000/api/auth/register', { name: username, email, password });
+      const res = await axios.post('http://localhost:5002/api/auth/register', { name: username, email, password });
       // Store token in state
       setToken(res.data.token);
       // Store token in localStorage
