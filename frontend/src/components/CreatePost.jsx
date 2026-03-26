@@ -13,6 +13,8 @@ import '../styles.css';
 const CreatePost = () => {
   // State for post title
   const [title, setTitle] = useState('');
+  // State for post category
+  const [category, setCategory] = useState('');
   // State for post content
   const [content, setContent] = useState('');
   // Get current user from authentication context
@@ -31,7 +33,7 @@ const CreatePost = () => {
     }
     try {
       // POST request to create new post
-      await axios.post('http://localhost:5004/api/posts', { title, content });
+      await axios.post('http://localhost:5004/api/posts', { title, category, content });
       // Navigate to posts page after successful creation
       navigate('/posts');
     } catch (err) {
@@ -53,6 +55,14 @@ const CreatePost = () => {
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+        {/* Category input field */}
+        <input
+          type="text"
+          placeholder="Category (e.g., Food, Music, Art, Tradition)"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
           required
         />
         {/* Content textarea */}
