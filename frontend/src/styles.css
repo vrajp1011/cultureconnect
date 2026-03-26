@@ -117,7 +117,7 @@ body {
   box-shadow: 0 12px 40px rgba(255, 107, 107, 0.3);
 }
 
-/* Navbar */
+/* Navbar Styles */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -215,7 +215,7 @@ body {
   background: linear-gradient(45deg, #ff5252, #ff3838);
 }
 
-/* Home */
+/* Home Page Styles */
 .home {
   width: 100%;
   color: #fff;
@@ -388,7 +388,7 @@ body {
   font-size: 0.9rem;
 }
 
-/* Auth */
+/* Authentication Pages Styles */
 .auth-container {
   display: flex;
   justify-content: center;
@@ -513,7 +513,7 @@ body {
   background: linear-gradient(45deg, #ff5252, #ff3838);
 }
 
-/* Posts */
+/* Posts Page Styles */
 .posts-container {
   width: 100%;
   position: relative;
@@ -621,7 +621,7 @@ body {
   text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
 }
 
-/* PostDetail */
+/* Post Detail Page Styles */
 .post-detail {
   width: 100%;
   position: relative;
@@ -801,7 +801,7 @@ body {
   background: linear-gradient(45deg, #ff5252, #ff3838);
 }
 
-/* CreatePost */
+/* Create Post Page Styles */
 .create-post-container {
   display: flex;
   justify-content: center;
