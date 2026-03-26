@@ -11,9 +11,14 @@ const PORT = process.env.PORT || 5000;
 // ================= START SERVER =================
 
 // Start the Express server and listen on specified port
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
 
   // Log message when server successfully starts
   console.log(`Backend running on http://localhost:${PORT}`);
 
+});
+
+// Handle server errors
+server.on('error', (err) => {
+  console.error('Server error:', err);
 });
