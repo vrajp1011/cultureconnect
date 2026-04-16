@@ -1,10 +1,11 @@
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 const prisma = new PrismaClient();
 
 async function main() {
-  // Create users
+  // Create default users
   const user1 = await prisma.user.create({
     data: {
       name: 'Alice',
@@ -20,6 +21,21 @@ async function main() {
       password: await bcrypt.hash('password123', 10),
     },
   });
+
+  // Optional admin user from environment variable
+  if (process.env.ADMIN_EMAIL) {
+    const adminExists = await prisma.user.findUnique({ where: { email: process.env.ADMIN_EMAIL } });
+    if (!adminExists) {
+      await prisma.user.create({
+        data: {
+          name: process.env.ADMIN_NAME || 'Admin',
+          email: process.env.ADMIN_EMAIL,
+          password: await bcrypt.hash(process.env.ADMIN_PASSWORD || 'admin123', 10),
+          isAdmin: true,
+        },
+      });
+    }
+  }
 
   // Create posts
   const post1 = await prisma.culturalPost.create({

@@ -33,19 +33,21 @@ async function register(req, res, next) {
       data: { 
         name, 
         email, 
-        password: hashed 
+        password: hashed,
+        isAdmin: email === process.env.ADMIN_EMAIL,
       },
       // Select only safe fields (exclude password)
       select: { 
         id: true, 
         name: true, 
         email: true, 
+        isAdmin: true,
         createdAt: true 
       },
     });
 
     // Generate JWT token for authentication
-    const token = signToken({ id: user.id, email: user.email });
+    const token = signToken({ id: user.id, email: user.email, isAdmin: user.isAdmin });
 
     // Send response with user data and token
     res.status(201).json({ user, token });
@@ -85,14 +87,15 @@ async function login(req, res, next) {
     }
 
     // Generate JWT token after successful login
-    const token = signToken({ id: user.id, email: user.email });
+    const token = signToken({ id: user.id, email: user.email, isAdmin: user.isAdmin });
 
     // Send user info (excluding password) and token
     res.json({
       user: { 
         id: user.id, 
         name: user.name, 
-        email: user.email 
+        email: user.email,
+        isAdmin: user.isAdmin,
       },
       token
     });

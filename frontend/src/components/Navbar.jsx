@@ -45,7 +45,9 @@ const Navbar = () => {
         {user ? (
           // Links for authenticated users
           <>
-            {/* Create post link */}
+            {user.isAdmin && (
+              <li><Link to="/admin" className={location.pathname === '/admin' ? 'active' : ''}>Admin</Link></li>
+            )}
             <li><Link to="/create-post" className={location.pathname === '/create-post' ? 'active' : ''}>Create Post</Link></li>
             {/* Logout button */}
             <li><button onClick={logout}>Logout</button></li>

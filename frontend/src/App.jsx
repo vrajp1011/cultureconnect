@@ -10,6 +10,7 @@ import Register from './components/Register';
 import Posts from './components/Posts';
 import PostDetail from './components/PostDetail';
 import CreatePost from './components/CreatePost';
+import AdminDashboard from './components/AdminDashboard';
 // Import the main stylesheet
 import './styles.css';
 
@@ -38,6 +39,8 @@ function App() {
             <Route path="/posts/:id" element={<PostDetail />} />
             {/* Create new post page route */}
             <Route path="/create-post" element={<CreatePost />} />
+            {/* Admin dashboard route */}
+            <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
         </div>
       </Router>

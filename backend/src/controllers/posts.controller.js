@@ -120,8 +120,8 @@ async function updatePost(req, res, next) {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    // Authorization check (only owner allowed)
-    if (existing.userId !== req.user.id) {
+    // Authorization check (owner or admin allowed)
+    if (existing.userId !== req.user.id && !req.user.isAdmin) {
       return res.status(403).json({ message: "Not allowed" });
     }
 
@@ -166,8 +166,8 @@ async function deletePost(req, res, next) {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    // Authorization check
-    if (existing.userId !== req.user.id) {
+    // Authorization check (owner or admin allowed)
+    if (existing.userId !== req.user.id && !req.user.isAdmin) {
       return res.status(403).json({ message: "Not allowed" });
     }
 

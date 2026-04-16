@@ -8,19 +8,33 @@ import API_BASE_URL from '../config';
 // Create authentication context
 const AuthContext = createContext();
 
+function decodeToken(token) {
+  try {
+    const [, payload] = token.split('.');
+    const decoded = JSON.parse(atob(payload));
+    return decoded;
+  } catch {
+    return null;
+  }
+}
+
 // AuthProvider component - provides authentication state and functions to child components
 export const AuthProvider = ({ children }) => {
-  // State for current user data
-  const [user, setUser] = useState(null);
   // State for JWT token, initialized from localStorage
   const [token, setToken] = useState(localStorage.getItem('token') || '');
+  // State for current user data, restore from token payload if available
+  const [user, setUser] = useState(() => {
+    const savedToken = localStorage.getItem('token');
+    const decoded = savedToken ? decodeToken(savedToken) : null;
+    return decoded ? { id: decoded.id, email: decoded.email, isAdmin: decoded.isAdmin } : null;
+  });
 
   // useEffect to set axios default headers when token changes
   useEffect(() => {
     if (token) {
-      // Set Authorization header for all axios requests
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      // Note: Could add token verification here if needed
+    } else {
+      delete axios.defaults.headers.common['Authorization'];
     }
   }, [token]); // Run when token changes
 
