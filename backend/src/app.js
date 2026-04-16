@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const { errorHandler } = require("./middleware/errorHandler");
 
 const authRoutes = require("./routes/auth.routes");
@@ -18,6 +19,10 @@ app.use(cors({ origin: process.env.CORS_ORIGIN || "*" }));
 
 // Parse JSON request bodies
 app.use(express.json());
+
+// Limit JSON body size to allow base64 images
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb' }));
 
 
 // ================= ROOT ROUTE =================
@@ -45,6 +50,21 @@ app.get("/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postsRoutes);
 app.use("/api", commentsRoutes);
+
+
+// ================= STATIC FILES & FRONTEND FALLBACK =================
+
+// Serve static files from frontend build
+const frontendBuildPath = path.join(__dirname, '../../frontend/dist');
+app.use(express.static(frontendBuildPath));
+
+// SPA fallback - serve index.html for all non-API routes
+app.get('*', (req, res) => {
+  // Don't serve index.html for API routes
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(frontendBuildPath, 'index.html'));
+  }
+});
 
 
 // ================= ERROR HANDLER =================

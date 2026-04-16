@@ -2,6 +2,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 // Import axios for HTTP requests
 import axios from 'axios';
+// Import API configuration
+import API_BASE_URL from '../config';
 
 // Create authentication context
 const AuthContext = createContext();
@@ -26,7 +28,8 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       // POST request to login endpoint
-      const res = await axios.post('http://localhost:5004/api/auth/login', { email, password });
+      const res = await axios.post(`${API_BASE_URL}/auth/login`, { email, password });
+      console.log('Login successful:', res.data);
       // Store token in state
       setToken(res.data.token);
       // Store token in localStorage for persistence
@@ -36,6 +39,8 @@ export const AuthProvider = ({ children }) => {
       // Store user data in state
       setUser(res.data.user); // Assuming user data is returned from API
     } catch (err) {
+      // Log error for debugging
+      console.error('Login error:', err.response?.data || err.message);
       // Re-throw error to be handled by component
       throw err;
     }
@@ -45,7 +50,8 @@ export const AuthProvider = ({ children }) => {
   const register = async (username, email, password) => {
     try {
       // POST request to register endpoint
-      const res = await axios.post('http://localhost:5004/api/auth/register', { name: username, email, password });
+      const res = await axios.post(`${API_BASE_URL}/auth/register`, { name: username, email, password });
+      console.log('Registration successful:', res.data);
       // Store token in state
       setToken(res.data.token);
       // Store token in localStorage
@@ -55,6 +61,8 @@ export const AuthProvider = ({ children }) => {
       // Store user data in state
       setUser(res.data.user);
     } catch (err) {
+      // Log error for debugging
+      console.error('Registration error:', err.response?.data || err.message);
       // Re-throw error to be handled by component
       throw err;
     }

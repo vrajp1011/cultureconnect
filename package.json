@@ -1,0 +1,19 @@
+{
+  "name": "cultureconnect",
+  "version": "1.0.0",
+  "description": "CultureConnect - Share and discover cultural experiences",
+  "main": "backend/src/server.js",
+  "scripts": {
+    "install-all": "npm install && cd frontend && npm install && cd ..",
+    "build": "cd frontend && npm run build",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
+    "start": "node backend/src/server.js",
+    "postbuild": "echo 'Build complete'"
+  },
+  "keywords": ["culture", "community", "posts"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
