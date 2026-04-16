@@ -6,6 +6,7 @@
   "scripts": {
     "install-all": "npm install && cd frontend && npm install --legacy-peer-deps && cd .. && cd backend && npm install --legacy-peer-deps",
     "build": "cd frontend && npm install --legacy-peer-deps && npm run build && cd .. && cd backend && npm install --legacy-peer-deps && npx prisma generate && npx prisma migrate deploy",
+    "prestart": "node -e \"const fs=require('fs'); const path=require('path'); const file=path.join(__dirname,'frontend','dist','index.html'); if(!fs.existsSync(file)){ console.log('Prestart: frontend dist missing, building app...'); require('child_process').execSync('npm run build', {stdio:'inherit'}); }\"",
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
     "start": "node backend/src/server.js",
     "postbuild": "echo 'Build complete'"
