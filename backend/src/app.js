@@ -25,10 +25,9 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb' }));
 
 
-// ================= ROOT ROUTE =================
+// ================= API ROOT =================
 
-// Fix for "Cannot GET /"
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.status(200).json({
     message: "🚀 CultureConnect API is running successfully",
   });
@@ -37,7 +36,7 @@ app.get("/", (req, res) => {
 
 // ================= HEALTH CHECK =================
 
-app.get("/health", (req, res) => {
+app.get("/api/health", (req, res) => {
   res.status(200).json({
     status: "ok",
     uptime: process.uptime(),
